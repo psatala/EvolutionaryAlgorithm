@@ -11,7 +11,6 @@ class Individual:
 
 
     def calculateFitness(self, problem):
-        penalty = 0
         self.isFeasible(problem)
         self.fitness = sum(self.chromosome) + PENALTY_CONSTANT * self.penalty(self.chromosome)
         return self.fitness

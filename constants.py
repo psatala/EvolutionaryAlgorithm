@@ -2,6 +2,7 @@
 N_RUNS = 1
 PROBLEM_SIZE = 30
 MAX_GRADE = 6
+N_ITERATIONS = 0
 
 #evolutionary algorithm
 POPULATION_SIZE = 100

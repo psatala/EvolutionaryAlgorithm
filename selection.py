@@ -1,5 +1,7 @@
+from population import *
+
 def selectionRoulette(stablePopulation):
-    return -1
+    return Population()
 
 def selectionTournament(stablePopulation):
-    return -1
+    return Population()

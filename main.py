@@ -1,32 +1,35 @@
-from individual import *
 from operations import *
-
+from linear import *
 
 
 def main():
 
-    #constants
-    PROBLEM_SIZE = 30
-    MAX_GRADE = 6
+    for i in range(N_RUNS):
+        
+        #generate problem
+        problem = np.random.randint(low = 1, high = MAX_GRADE + 1, size = PROBLEM_SIZE)
 
-    myIndividual = Individual(PROBLEM_SIZE)
-    
-    #TODO
-    stablePopulation = init()
+        #optimal solution
+        optimalSolution = linear(problem)
 
-    selectionMethod = SELECTION_TOURNAMENT
-    crossoverMethod = CROSSOVER_UNIFORM
-    mutationMethod = MUTATION_GAUSS
-    successionMethod = SUCCESSION_GENERATIONAL
 
-    #main loop
-    while(True):
-        tempPopulation = selection(stablePopulation, selectionMethod)
-        tempPopulation = crossover(tempPopulation, crossoverMethod)
-        tempPopulation = mutation(tempPopulation, mutationMethod)
-        fitness(tempPopulation)
-        stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
-    
+        #evolutionary algorithms methods for operations
+        selectionMethod = SELECTION_TOURNAMENT
+        crossoverMethod = CROSSOVER_UNIFORM
+        mutationMethod = MUTATION_GAUSS
+        successionMethod = SUCCESSION_GENERATIONAL
+
+        #initialize population
+        stablePopulation = Population()
+
+        #main loop
+        while True:
+            tempPopulation = selection(stablePopulation, selectionMethod)
+            tempPopulation = crossover(tempPopulation, crossoverMethod)
+            tempPopulation = mutation(tempPopulation, mutationMethod)
+            tempPopulation.calculateFitness(problem)
+            stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
+
 
 
 

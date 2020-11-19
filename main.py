@@ -27,15 +27,13 @@ def main():
         #initialize population
         stablePopulation = Population()
 
-        iterations = 0
         #main loop
-        while iterations < N_ITERATIONS:
+        for i in range(N_ITERATIONS):
             tempPopulation = selection(stablePopulation, selectionMethod)
             tempPopulation = crossover(tempPopulation, crossoverMethod)
             tempPopulation = mutation(tempPopulation, mutationMethod)
             tempPopulation.calculateFitness(problem)
             stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
-            iterations += 1
 
 
 if __name__ == "__main__":

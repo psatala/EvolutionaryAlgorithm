@@ -77,3 +77,8 @@ class Individual:
                     pVal += self.chromosome[i+1] - self.chromosome[i] + 1
         
         return pVal
+
+
+    #TODO
+    def makeFeasible(self, problem):
+        pass

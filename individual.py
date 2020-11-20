@@ -79,6 +79,24 @@ class Individual:
         return pVal
 
 
-    #TODO
+
     def makeFeasible(self, problem):
-        pass
+
+        for i in range(1, self.chromosome.size):
+
+            if problem[i-1] < problem[i] and self.chromosome[i-1] >= self.chromosome[i]:
+                self.chromosome[i] = self.chromosome[i-1] + 1
+            
+            elif problem[i-1] > problem[i] and self.chromosome[i-1] <= self.chromosome[i]:
+                self.chromosome[i] = self.chromosome[i-1] - 1
+        
+                #backtracking
+                if self.chromosome[i] == 0:
+                    current = i
+                    self.chromosome[current] = 1
+                    while current > 0 and problem[current-1] > problem[current]:
+                        self.chromosome[current-1] = self.chromosome[current] + 1
+                        current -= 1
+                    if current > 0 and problem[current-1] < problem[current]:
+                        self.chromosome[current] = max(self.chromosome[current], self.chromosome[current-1]+1)
+

@@ -4,8 +4,8 @@ from population import *
 
 
 def mutationGauss(tempPopulation):
-    for i in range(POPULATION_SIZE):
-        for j in range(PROBLEM_SIZE):
+    for i in range(len(tempPopulation.individuals)):
+        for j in range(tempPopulation.individuals[i].chromosome.size):
             if np.random.rand() < MUTATION_PROBABILITY:
                 tempPopulation.individuals[i].chromosome[j] += round(np.random.normal(loc=0.0, scale=1.0))
                 tempPopulation.individuals[i].chromosome[j] = min(tempPopulation.individuals[i].chromosome[j], MAX_GRADE)
@@ -17,8 +17,8 @@ def mutationGauss(tempPopulation):
 
 
 def mutationRandom(tempPopulation):
-    for i in range(POPULATION_SIZE):
-        for j in range(PROBLEM_SIZE):
+    for i in range(len(tempPopulation.individuals)):
+        for j in range(tempPopulation.individuals[i].chromosome.size):
             if np.random.rand() < MUTATION_PROBABILITY:
                 tempPopulation.individuals[i].chromosome[j] = np.random.randint(1, MAX_GRADE + 1)
     

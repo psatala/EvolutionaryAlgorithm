@@ -2,6 +2,7 @@
 
 from operations import *
 from linear import *
+import copy
 
 
 def main():
@@ -30,19 +31,27 @@ def main():
         #main loop
         for i in range(N_ITERATIONS):
             print("Iteration "+str(i))
-            tempPopulation = selection(stablePopulation, selectionMethod)
+            tempPopulation = copy.deepcopy(stablePopulation)
+            tempPopulation = selection(tempPopulation, selectionMethod)
             tempPopulation = crossover(tempPopulation, crossoverMethod)
             tempPopulation = mutation(tempPopulation, mutationMethod)
             tempPopulation.calculateFitness(problem)
             stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
             scores = []
+            bestChromosome = []
+            bestFit = 1e9
             for x in stablePopulation.individuals:
                 scores.append(x.fitness)
+                if x.fitness < bestFit:
+                    bestFit = x.fitness
+                    bestChromosome = x.chromosome
             print(min(scores), end="\t")
             print(round(sum(scores)/len(scores)), end="\t")
             print(max(scores))
+            print(bestChromosome)
 
         print("Optimal solution: "+str(optimalSolution))
+        print(solution)
 
 if __name__ == "__main__":
     main()

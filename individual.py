@@ -81,7 +81,7 @@ class Individual:
         
         for i in range(0, self.chromosome.size):
             if self.chromosome[i] < 1:
-                pVal += 1-self.chromosome[i]
+                pVal += 5*(1-self.chromosome[i])
         return pVal
 
 

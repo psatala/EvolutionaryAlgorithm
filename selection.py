@@ -6,14 +6,20 @@ def selectionRoulette(stablePopulation):
     selectedPopulation = Population(populationSize=0)
 
     #calculate total fitness
-    sumFitness = 0
+    fitnessVals = []
     for i in range(len(stablePopulation.individuals)):
-        sumFitness += stablePopulation.individuals[i].fitness
+        fitnessVals.append(stablePopulation.individuals[i].fitness)
+    
+    maxFitness = max(fitnessVals)
+    minFitness = min(fitnessVals)
+    for i in range(len(fitnessVals)):
+        fitnessVals[i] = maxFitness - fitnessVals[i] + minFitness
+    sumFitness = sum(fitnessVals)
 
     #calculate probabilities
     probabilities = np.zeros(len(stablePopulation.individuals))
     for i in range(len(stablePopulation.individuals)):
-        probabilities[i] = stablePopulation.individuals[i].fitness / sumFitness
+        probabilities[i] = fitnessVals[i] / sumFitness
 
     #select
     chosenOnes = np.random.choice(a=stablePopulation.individuals, size=len(stablePopulation.individuals), replace=True, p=probabilities).tolist()
@@ -29,7 +35,7 @@ def selectionTournament(stablePopulation):
     for i in range(len(stablePopulation.individuals)):
         #play tournament
         candidates = np.random.choice(a=stablePopulation.individuals, size=2, replace=True)
-        if(candidates[0].fitness >= candidates[1].fitness):
+        if(candidates[0].fitness <= candidates[1].fitness):
             selectedPopulation.individuals.append(candidates[0])
         else:
             selectedPopulation.individuals.append(candidates[1])

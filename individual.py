@@ -9,10 +9,13 @@ class Individual:
         self.feasible = False
         self.chromosome = np.random.randint(low = minGrade, high = maxGrade + 1, size = n)
 
+    def __lt__(self, other): 
+        return self.fitness < other.fitness
+
 
     def calculateFitness(self, problem):
         self.isFeasible(problem)
-        self.fitness = sum(self.chromosome) + PENALTY_CONSTANT * self.penalty(self.chromosome)
+        self.fitness = sum(self.chromosome) + PENALTY_CONSTANT * self.penalty(problem)
         return self.fitness
 
         
@@ -76,6 +79,9 @@ class Individual:
                 if self.chromosome[i] <= self.chromosome[i+1]:
                     pVal += self.chromosome[i+1] - self.chromosome[i] + 1
         
+        for i in range(0, self.chromosome.size):
+            if self.chromosome[i] < 1:
+                pVal += 1-self.chromosome[i]
         return pVal
 
 

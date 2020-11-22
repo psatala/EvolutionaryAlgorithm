@@ -1,5 +1,5 @@
 import numpy as np
-from constants import PENALTY_CONSTANT
+from constants import *
 
 
 
@@ -81,7 +81,7 @@ class Individual:
         
         for i in range(0, self.chromosome.size):
             if self.chromosome[i] < 1:
-                pVal += 5*(1-self.chromosome[i])
+                pVal += GENE_0_PENALTY_MULTIPLIER*(1-self.chromosome[i])
         return pVal
 
 

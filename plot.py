@@ -23,6 +23,7 @@ def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selection
     for i in range(N_RUNS):
         file.write(str(maxFitness[i][N_EPOCHS-1])+"\t")
     file.write('\n')
+    file.write('Penalty: '+str(PENALTY_CONSTANT)+'\n')
     file.close()
 
     suptitle = ''

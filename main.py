@@ -26,12 +26,11 @@ def main():
         # if validate(problem, solution, optimalSolution):
             # print("OK")
 
-
         #evolutionary algorithms methods for operations
         selectionMethod = SELECTION_ROULETTE
         crossoverMethod = CROSSOVER_ARITHMETIC
         mutationMethod = MUTATION_GAUSS
-        successionMethod = SUCCESSION_ELITE
+        successionMethod = SUCCESSION_GENERATIONAL
 
         #initialize population
         stablePopulation = Population()

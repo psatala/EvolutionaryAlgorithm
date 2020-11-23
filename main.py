@@ -14,6 +14,7 @@ def main():
     optimalSolution = []
 
     for n in range(N_RUNS):
+        print('Run '+str(n))
         
         #generate problem
         problem = np.random.randint(low = 1, high = MAX_GRADE + 1, size = PROBLEM_SIZE)
@@ -41,7 +42,8 @@ def main():
 
         #main loop
         for i in range(N_EPOCHS):
-            print("Epoch "+str(i))
+            if i % 100 == 0:
+                print("Epoch "+str(i)+"/"+str(N_EPOCHS))
             tempPopulation = copy.deepcopy(stablePopulation)
             tempPopulation = selection(tempPopulation, selectionMethod)
             tempPopulation = crossover(tempPopulation, crossoverMethod)
@@ -58,8 +60,8 @@ def main():
         minFitness.append(mins)
         avgFitness.append(avgs)
         maxFitness.append(maxs)
-
-    plotSingleRun(0, minFitness, avgFitness, maxFitness, optimalSolution)
+    
+    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod)
 
 
 if __name__ == "__main__":

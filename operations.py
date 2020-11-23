@@ -14,6 +14,8 @@ def selection(stablePopulation, selectionMethod):
 
 
 def crossover(tempPopulation, crossoverMethod):
+    if crossoverMethod == CROSSOVER_NONE:
+        return tempPopulation
     newPopulation = Population()
     newPopulation.individuals = []
     while len(newPopulation.individuals) < POPULATION_SIZE:

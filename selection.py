@@ -13,6 +13,7 @@ def selectionRoulette(stablePopulation):
     maxFitness = max(fitnessVals)
     minFitness = min(fitnessVals)
     for i in range(len(fitnessVals)):
+        #fitnessVals[i] = 1 / fitnessVals[i] #another way to do roulette selection
         fitnessVals[i] = maxFitness - fitnessVals[i] + minFitness
     sumFitness = sum(fitnessVals)
 
@@ -34,11 +35,12 @@ def selectionTournament(stablePopulation):
 
     for i in range(len(stablePopulation.individuals)):
         #play tournament
-        candidates = np.random.choice(a=stablePopulation.individuals, size=2, replace=True)
-        if(candidates[0].fitness <= candidates[1].fitness):
-            selectedPopulation.individuals.append(candidates[0])
+        candidate0Id = np.random.randint(0, len(stablePopulation.individuals))
+        candidate1Id = np.random.randint(0, len(stablePopulation.individuals))
+        if(stablePopulation.individuals[candidate0Id].fitness <= stablePopulation.individuals[candidate1Id].fitness):
+            selectedPopulation.individuals.append(stablePopulation.individuals[candidate0Id])
         else:
-            selectedPopulation.individuals.append(candidates[1])
+            selectedPopulation.individuals.append(stablePopulation.individuals[candidate1Id])
 
     
     return selectedPopulation

@@ -28,9 +28,9 @@ def main():
 
         #evolutionary algorithms methods for operations
         selectionMethod = SELECTION_ROULETTE
-        crossoverMethod = CROSSOVER_ARITHMETIC
+        crossoverMethod = CROSSOVER_UNIFORM
         mutationMethod = MUTATION_GAUSS
-        successionMethod = SUCCESSION_GENERATIONAL
+        successionMethod = SUCCESSION_ELITE
 
         #initialize population
         stablePopulation = Population()

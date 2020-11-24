@@ -1,0 +1,6 @@
+Plot: results/2020_11_24_00_52_28.png
+Optimal solution:	54	
+Final best fitness:	55	
+Final average fitness:	187	
+Final worst fitness:	288	
+Penalty: 5

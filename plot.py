@@ -46,7 +46,7 @@ def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selection
     if successionMethod == SUCCESSION_GENERATIONAL:
         suptitle += 'Generational succession'
     else:
-        suptitle += 'Elite succession'
+        suptitle += 'Elite succession ('+str(ELITE_SIZE)+')'
     plotSummary(minFitness, avgFitness, maxFitness, optimalSolution, suptitle, filename)
 
 

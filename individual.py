@@ -84,7 +84,7 @@ class Individual:
         
         for i in range(0, self.chromosome.size):
             if self.chromosome[i] < 1:
-                pVal += GENE_0_PENALTY_MULTIPLIER*(1-self.chromosome[i])
+                pVal += 1-self.chromosome[i]
         return pVal
 
 

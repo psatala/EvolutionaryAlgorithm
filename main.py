@@ -30,11 +30,11 @@ def main():
         optimalSolution.append(solutionVal)
         
         #evolutionary algorithms methods for operations
-        selectionMethod = SELECTION_ROULETTE
+        selectionMethod = SELECTION_TOURNAMENT
         crossoverMethod = CROSSOVER_UNIFORM
         mutationMethod = MUTATION_GAUSS
         successionMethod = SUCCESSION_ELITE
-        feasibilityMethod = INFEASIBLE_ALLOWED
+        feasibilityMethod = FEASIBLE_ONLY
 
         #initialize population
         stablePopulation = Population()

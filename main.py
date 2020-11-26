@@ -31,10 +31,10 @@ def main():
         
         #evolutionary algorithms methods for operations
         selectionMethod = SELECTION_TOURNAMENT
-        crossoverMethod = CROSSOVER_UNIFORM
+        crossoverMethod = CROSSOVER_NONE
         mutationMethod = MUTATION_GAUSS
         successionMethod = SUCCESSION_ELITE
-        feasibilityMethod = FEASIBLE_ONLY
+        feasibilityMethod = INFEASIBLE_ALLOWED
 
         #initialize population
         stablePopulation = Population()

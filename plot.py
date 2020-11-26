@@ -3,7 +3,7 @@ from constants import *
 from datetime import datetime
 
 
-def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod):
+def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod):
     filename = "results/"+datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
     file = open(filename[:-3]+"txt","w")
     file.write("Plot: "+str(filename)+'\n')
@@ -44,9 +44,13 @@ def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selection
     else:
         suptitle += 'Random mutation ('+str(MUTATION_PROBABILITY)+'), '
     if successionMethod == SUCCESSION_GENERATIONAL:
-        suptitle += 'Generational succession'
+        suptitle += 'Generational succession, '
     else:
-        suptitle += 'Elite succession ('+str(ELITE_SIZE)+')'
+        suptitle += 'Elite succession ('+str(ELITE_SIZE)+'), '
+    if feasibilityMethod == FEASIBLE_ONLY:
+        suptitle += 'Feasible only'
+    else:
+        suptitle += 'Infeasible allowed ('+str(PENALTY_CONSTANT)+')'
     plotSummary(minFitness, avgFitness, maxFitness, optimalSolution, suptitle, filename)
 
 

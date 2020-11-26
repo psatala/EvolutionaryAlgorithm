@@ -6,6 +6,7 @@ import copy
 from plot import *
 
 
+
 def main():
 
     minFitness = []
@@ -23,14 +24,12 @@ def main():
         solutionVal, solution = linear(problem)
         optimalSolution.append(solutionVal)
         
-        # if validate(problem, solution, optimalSolution):
-            # print("OK")
-
         #evolutionary algorithms methods for operations
         selectionMethod = SELECTION_ROULETTE
         crossoverMethod = CROSSOVER_UNIFORM
         mutationMethod = MUTATION_GAUSS
         successionMethod = SUCCESSION_ELITE
+        feasibilityMethod = INFEASIBLE_ALLOWED
 
         #initialize population
         stablePopulation = Population()
@@ -47,7 +46,7 @@ def main():
             tempPopulation = selection(tempPopulation, selectionMethod)
             tempPopulation = crossover(tempPopulation, crossoverMethod)
             tempPopulation = mutation(tempPopulation, mutationMethod)
-            tempPopulation.calculateFitness(problem)
+            tempPopulation.calculateFitness(problem, feasibilityMethod)
             stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
             scores = []
             for x in stablePopulation.individuals:
@@ -55,13 +54,15 @@ def main():
             mins.append(min(scores))
             avgs.append(round(sum(scores)/len(scores)))
             maxs.append(max(scores))
+
         
         minFitness.append(mins)
         avgFitness.append(avgs)
         maxFitness.append(maxs)
     
-    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod)
+    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod)
 
 
 if __name__ == "__main__":
     main()
+

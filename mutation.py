@@ -9,7 +9,7 @@ def mutationGauss(tempPopulation):
             if np.random.rand() < MUTATION_PROBABILITY:
                 tempPopulation.individuals[i].chromosome[j] += round(np.random.normal(loc=0.0, scale=1.0))
                 tempPopulation.individuals[i].chromosome[j] = min(tempPopulation.individuals[i].chromosome[j], MAX_GRADE)
-                tempPopulation.individuals[i].chromosome[j] = max(tempPopulation.individuals[i].chromosome[j], 0)    
+                tempPopulation.individuals[i].chromosome[j] = max(tempPopulation.individuals[i].chromosome[j], 1)    
     
     return tempPopulation
 

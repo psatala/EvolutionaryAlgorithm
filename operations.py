@@ -22,8 +22,9 @@ def crossover(tempPopulation, crossoverMethod):
         a = tempPopulation.individuals[math.floor(np.random.rand()*len(tempPopulation.individuals))]
         b = tempPopulation.individuals[math.floor(np.random.rand()*len(tempPopulation.individuals))]
         newPopulation.individuals.append(a)
-        newPopulation.individuals.append(b)
-        if np.random.rand() < CROSSOVER_PROBABILITY:
+        if len(newPopulation.individuals) < POPULATION_SIZE:
+            newPopulation.individuals.append(b)
+        if np.random.rand() < CROSSOVER_PROBABILITY and len(newPopulation.individuals) < POPULATION_SIZE:
             if crossoverMethod == CROSSOVER_SINGLE_POINT:
                 newPopulation.individuals.append(crossoverSinglePoint(a, b))
             elif crossoverMethod == CROSSOVER_UNIFORM:

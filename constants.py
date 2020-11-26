@@ -1,8 +1,12 @@
 #general
-N_RUNS = 25
+N_RUNS = 1
 PROBLEM_SIZE = 30
 MAX_GRADE = 6
 N_EPOCHS = 400
+
+#feasibility
+FEASIBLE_ONLY = 1
+INFEASIBLE_ALLOWED = 2
 
 #evolutionary algorithm
 POPULATION_SIZE = 300

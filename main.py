@@ -4,10 +4,15 @@ from operations import *
 from linear import *
 import copy
 from plot import *
+import time
 
 
 
 def main():
+
+    # Use current Unix time as seed
+    seed = int(round(time.time()))
+    np.random.seed(seed)
 
     minFitness = []
     avgFitness = []
@@ -60,7 +65,7 @@ def main():
         avgFitness.append(avgs)
         maxFitness.append(maxs)
     
-    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod)
+    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod, seed)
 
 
 if __name__ == "__main__":

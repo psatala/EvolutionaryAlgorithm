@@ -3,7 +3,7 @@ from constants import *
 from datetime import datetime
 
 
-def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod):
+def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod, seed):
     filename = "results/"+datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
     file = open(filename[:-3]+"txt","w")
     file.write("Plot: "+str(filename)+'\n')
@@ -24,6 +24,7 @@ def createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selection
         file.write(str(maxFitness[i][N_EPOCHS-1])+"\t")
     file.write('\n')
     file.write('Penalty: '+str(PENALTY_CONSTANT)+'\n')
+    file.write('Seed: '+str(seed)+'\n')
     file.close()
 
     suptitle = ''

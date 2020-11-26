@@ -1,5 +1,5 @@
 import numpy as np
-from constants import PENALTY_CONSTANT
+from constants import *
 
 
 
@@ -9,10 +9,16 @@ class Individual:
         self.feasible = False
         self.chromosome = np.random.randint(low = minGrade, high = maxGrade + 1, size = n)
 
+    def __lt__(self, other): 
+        return self.fitness < other.fitness
 
-    def calculateFitness(self, problem):
-        self.isFeasible(problem)
-        self.fitness = sum(self.chromosome) + PENALTY_CONSTANT * self.penalty(self.chromosome)
+
+    def calculateFitness(self, problem, feasibilityMethod):
+        if feasibilityMethod == INFEASIBLE_ALLOWED:
+            self.fitness = sum(self.chromosome) + PENALTY_CONSTANT * self.penalty(problem)
+        else:
+            self.makeFeasible(problem)
+            self.fitness = sum(self.chromosome)
         return self.fitness
 
         
@@ -76,12 +82,14 @@ class Individual:
                 if self.chromosome[i] <= self.chromosome[i+1]:
                     pVal += self.chromosome[i+1] - self.chromosome[i] + 1
         
+        for i in range(0, self.chromosome.size):
+            if self.chromosome[i] < 1:
+                pVal += GENE_0_PENALTY_MULTIPLIER*(1-self.chromosome[i])
         return pVal
 
 
 
     def makeFeasible(self, problem):
-
         for i in range(1, self.chromosome.size):
 
             if problem[i-1] < problem[i] and self.chromosome[i-1] >= self.chromosome[i]:
@@ -99,4 +107,3 @@ class Individual:
                         current -= 1
                     if current > 0 and problem[current-1] < problem[current]:
                         self.chromosome[current] = max(self.chromosome[current], self.chromosome[current-1]+1)
-

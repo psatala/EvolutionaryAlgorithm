@@ -2,39 +2,67 @@
 
 from operations import *
 from linear import *
+import copy
+from plot import *
+
 
 
 def main():
 
-    for i in range(N_RUNS):
+    minFitness = []
+    avgFitness = []
+    maxFitness = []
+    optimalSolution = []
+
+    for n in range(N_RUNS):
+        print('Run '+str(n))
         
         #generate problem
         problem = np.random.randint(low = 1, high = MAX_GRADE + 1, size = PROBLEM_SIZE)
 
         #optimal solution
-        optimalSolution, solution = linear(problem)
+        solutionVal, solution = linear(problem)
+        optimalSolution.append(solutionVal)
         
-        # if validate(problem, solution, optimalSolution):
-            # print("OK")
-
-
         #evolutionary algorithms methods for operations
-        selectionMethod = SELECTION_TOURNAMENT
+        selectionMethod = SELECTION_ROULETTE
         crossoverMethod = CROSSOVER_UNIFORM
         mutationMethod = MUTATION_GAUSS
-        successionMethod = SUCCESSION_GENERATIONAL
+        successionMethod = SUCCESSION_ELITE
+        feasibilityMethod = INFEASIBLE_ALLOWED
 
         #initialize population
         stablePopulation = Population()
 
+        mins = []
+        avgs = []
+        maxs = []
+
         #main loop
-        for i in range(N_ITERATIONS):
-            tempPopulation = selection(stablePopulation, selectionMethod)
+        for i in range(N_EPOCHS):
+            if i % 100 == 0:
+                print("Epoch "+str(i)+"/"+str(N_EPOCHS))
+            tempPopulation = copy.deepcopy(stablePopulation)
+            tempPopulation = selection(tempPopulation, selectionMethod)
             tempPopulation = crossover(tempPopulation, crossoverMethod)
             tempPopulation = mutation(tempPopulation, mutationMethod)
-            tempPopulation.calculateFitness(problem)
+            tempPopulation.calculateFitness(problem, feasibilityMethod)
             stablePopulation = succession(stablePopulation, tempPopulation, successionMethod)
+            scores = []
+            for x in stablePopulation.individuals:
+                scores.append(x.fitness)
+            mins.append(min(scores))
+            avgs.append(round(sum(scores)/len(scores)))
+            maxs.append(max(scores))
+
+        
+        minFitness.append(mins)
+        avgFitness.append(avgs)
+        maxFitness.append(maxs)
+    
+    createSummary(minFitness, avgFitness, maxFitness, optimalSolution, selectionMethod, crossoverMethod, mutationMethod, successionMethod, feasibilityMethod)
 
 
 if __name__ == "__main__":
     main()
+

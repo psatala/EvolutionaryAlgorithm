@@ -14,14 +14,27 @@ def selection(stablePopulation, selectionMethod):
 
 
 def crossover(tempPopulation, crossoverMethod):
-    if crossoverMethod == CROSSOVER_SINGLE_POINT:
-        return crossoverSinglePoint(tempPopulation)
-    elif crossoverMethod == CROSSOVER_UNIFORM:
-        return crossoverUniform(tempPopulation)
-    elif crossoverMethod == CROSSOVER_ARITHMETIC:
-        return crossoverArithmetic(tempPopulation)
-    else:
+    if crossoverMethod == CROSSOVER_NONE:
         return tempPopulation
+    newPopulation = Population()
+    newPopulation.individuals = []
+    while len(newPopulation.individuals) < POPULATION_SIZE:
+        a = tempPopulation.individuals[math.floor(np.random.rand()*len(tempPopulation.individuals))]
+        b = tempPopulation.individuals[math.floor(np.random.rand()*len(tempPopulation.individuals))]
+        newPopulation.individuals.append(a)
+        if len(newPopulation.individuals) < POPULATION_SIZE:
+            newPopulation.individuals.append(b)
+        if np.random.rand() < CROSSOVER_PROBABILITY and len(newPopulation.individuals) < POPULATION_SIZE:
+            if crossoverMethod == CROSSOVER_SINGLE_POINT:
+                newPopulation.individuals.append(crossoverSinglePoint(a, b))
+            elif crossoverMethod == CROSSOVER_UNIFORM:
+                newPopulation.individuals.append(crossoverUniform(a, b))
+            elif crossoverMethod == CROSSOVER_ARITHMETIC:
+                newPopulation.individuals.append(crossoverArithmetic(a, b))
+            else:
+                return tempPopulation
+    return newPopulation
+    
 
 
 
